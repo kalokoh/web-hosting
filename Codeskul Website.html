@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeSkul — Software Solutions & Technical Printing Services | Sierra Leone</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#0A192F',
+                            slate: '#1E293B',
+                            gold: '#C59B27',
+                            amber: '#F59E0B',
+                            emerald: '#10B981',
+                            light: '#F8FAFC'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Scrollbar & Subtle Utilities */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0A192F; }
+        ::-webkit-scrollbar-thumb { background: #C59B27; border-radius: 9999px; }
+        
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(197, 155, 39, 0.14) 1px, transparent 1px);
+            background-size: 26px 26px;
+        }
+
+        .glass-card {
+            background: rgba(30, 41, 59, 0.78);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .tab-active {
+            background-color: #0A192F !important;
+            color: #FFFFFF !important;
+            border-bottom: 3px solid #10B981 !important;
+        }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            accent-color: #C59B27;
+        }
+    </style>
+</head>
+<body class="bg-brand-light text-slate-800 font-sans antialiased selection:bg-brand-gold selection:text-brand-navy">
+
+    <!-- ========================================== -->
+    <!-- TOAST NOTIFICATION BOX (NO NATIVE ALERTS)  -->
+    <!-- ========================================== -->
+    <div id="toastNotification" class="fixed top-20 right-5 z-50 hidden max-w-sm rounded-xl bg-brand-navy text-white px-5 py-4 shadow-2xl border-l-4 border-brand-emerald transition-all duration-300">
+        <div class="flex items-start gap-3">
+            <span id="toastIcon" class="text-xl">✅</span>
+            <div>
+                <h4 id="toastTitle" class="font-bold text-sm text-brand-gold">Action Successful</h4>
+                <p id="toastMessage" class="text-xs text-slate-200 mt-0.5">Your request has been processed.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 1. STICKY NAVIGATION BAR                   -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-40 bg-brand-navy/95 backdrop-blur-md border-b border-slate-800 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-brand-gold to-amber-600 p-0.5 shadow-md group-hover:scale-105 transition-transform">
+                        <div class="w-full h-full bg-brand-navy rounded-[10px] flex items-center justify-center">
+                            <!-- Custom SVG CodeSkul Emblem -->
+                            <svg class="w-7 h-7" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 4L6 11L20 18L34 11L20 4Z" stroke="#C59B27" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 15V25C10 28 14.5 31 20 31C25.5 31 30 28 30 25V15" stroke="#10B981" stroke-width="2.5" stroke-linecap="round"/>
+                                <path d="M34 11V23" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                                <text x="20" y="25" text-anchor="middle" fill="#FFFFFF" font-family="monospace" font-weight="bold" font-size="9">&lt;/&gt;</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xl font-extrabold tracking-tight text-white">Code<span class="text-brand-gold">Skul</span></span>
+                            <span class="hidden sm:inline-block text-[10px] font-mono uppercase tracking-wider bg-brand-emerald/20 text-brand-emerald px-2 py-0.5 rounded-full border border-brand-emerald/30">SL</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400 font-medium">Software &amp; Technical Printing</p>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
+                    <a href="#home" class="hover:text-brand-gold transition-colors">Home</a>
+                    <a href="#skulmaster" class="hover:text-brand-gold transition-colors flex items-center gap-1">
+                        <span>SkulMaster EMIS</span>
+                        <span class="bg-brand-gold/20 text-brand-gold text-[10px] font-bold px-1.5 py-0.5 rounded">v2026</span>
+                    </a>
+                    <a href="#services" class="hover:text-brand-gold transition-colors">Services</a>
+                    <a href="#portfolio" class="hover:text-brand-gold transition-colors">Portfolio</a>
+                    <a href="#estimator" class="hover:text-brand-gold transition-colors">Price Estimator</a>
+                    <a href="#contact" class="hover:text-brand-gold transition-colors">Contact</a>
+                </nav>
+
+                <!-- Desktop CTA Button -->
+                <div class="hidden md:flex items-center gap-3">
+                    <a href="#estimator" class="bg-gradient-to-r from-brand-gold to-amber-500 hover:from-amber-500 hover:to-brand-gold text-brand-navy font-bold text-sm px-5 py-2.5 rounded-xl shadow-md hover:shadow-lg transition-all">
+                        Get a Quote
+                    </a>
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Toggle Menu" class="md:hidden p-2.5 rounded-xl bg-slate-800 text-slate-200 hover:text-brand-gold focus:outline-none">
+                    <svg id="menuIconOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                    <svg id="menuIconClose" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-brand-slate border-b border-slate-700 px-4 pt-3 pb-6 space-y-2">
+            <a href="#home" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Home</a>
+            <a href="#skulmaster" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Flagship: SkulMaster EMIS</a>
+            <a href="#services" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Core Services</a>
+            <a href="#portfolio" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Portfolio &amp; Prototypes</a>
+            <a href="#estimator" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Price Estimator</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block px-3 py-2.5 rounded-lg text-slate-200 hover:bg-brand-navy hover:text-brand-gold font-medium">Contact Us</a>
+            <div class="pt-2">
+                <a href="#estimator" onclick="toggleMobileMenu()" class="block w-full text-center bg-brand-gold text-brand-navy font-bold py-3 rounded-xl shadow">
+                    Calculate Project Quote
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========================================== -->
+    <!-- 2. HERO SECTION                            -->
+    <!-- ========================================== -->
+    <section id="home" class="relative bg-brand-navy text-white overflow-hidden bg-grid-pattern py-16 lg:py-24 border-b-4 border-brand-gold">
+        <!-- Ambient Glow -->
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-gold/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-emerald/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Column: Copy & CTAs -->
+                <div class="lg:col-span-6 space-y-6">
+                    <div class="inline-flex items-center gap-2 bg-slate-800/90 border border-slate-700 rounded-full px-4 py-1.5 text-xs font-semibold text-brand-gold">
+                        <span class="w-2 h-2 rounded-full bg-brand-emerald animate-pulse"></span>
+                        <span>Hastings, Waterloo Highway • Built for Sierra Leone</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight leading-tight">
+                        Engineering <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-gold to-amber-300">Offline-First Software</span> &amp; Technical Printing Solutions.
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                        CodeSkul empowers schools, enterprises, and institutions across Sierra Leone with resilient desktop &amp; mobile web applications, embedded IoT hardware prototypes, and high-durability CR80 ID card &amp; dossier printing.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-2">
+                        <a href="#skulmaster" class="inline-flex items-center justify-center gap-2 bg-brand-emerald hover:bg-emerald-500 text-brand-navy font-extrabold px-6 py-3.5 rounded-xl shadow-lg shadow-emerald-900/30 transition-all">
+                            <span>Explore SkulMaster EMIS</span>
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+                        </a>
+                        <a href="#estimator" class="inline-flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 font-semibold px-6 py-3.5 rounded-xl transition-all">
+                            <span>Request a Project Quote</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Metrics Bar -->
+                    <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-800">
+                        <div>
+                            <div class="text-2xl font-extrabold text-brand-gold font-mono">100%</div>
+                            <div class="text-xs text-slate-400">Offline-Ready SQLCipher DB</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-extrabold text-brand-emerald font-mono">CR80</div>
+                            <div class="text-xs text-slate-400">PVC ID &amp; Vector Dossiers</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-extrabold text-white font-mono">LAN+Cloud</div>
+                            <div class="text-xs text-slate-400">Hybrid Teacher Portal</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive SkulMaster Live Mockup -->
+                <div class="lg:col-span-6">
+                    <div class="rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl overflow-hidden">
+                        <!-- Window Title Bar -->
+                        <div class="bg-slate-950 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                                <span class="ml-2 text-xs font-mono text-slate-300">SkulMaster.exe — v2026 [Admin: Master Portal]</span>
+                            </div>
+                            <span class="text-[11px] font-mono bg-emerald-500/20 text-emerald-400 px-2.5 py-0.5 rounded-full border border-emerald-500/30">
+                                🟢 Portal Active :8080
+                            </span>
+                        </div>
+
+                        <!-- Simulated WinForms OwnerDrawFixed Tabs -->
+                        <div class="bg-slate-900 px-4 pt-3 flex items-center gap-1 text-xs border-b border-slate-800 overflow-x-auto">
+                            <button onclick="switchHeroPreview('dash')" id="heroBtnDash" class="px-3.5 py-2 rounded-t-lg font-bold bg-brand-navy text-white border-b-2 border-brand-emerald whitespace-nowrap">
+                                Analytics Dashboard
+                            </button>
+                            <button onclick="switchHeroPreview('portal')" id="heroBtnPortal" class="px-3.5 py-2 rounded-t-lg font-medium text-slate-400 hover:text-white whitespace-nowrap">
+                                Teacher Wi-Fi Portal
+                            </button>
+                            <button onclick="switchHeroPreview('idcard')" id="heroBtnIdcard" class="px-3.5 py-2 rounded-t-lg font-medium text-slate-400 hover:text-white whitespace-nowrap">
+                                CR80 ID Printer
+                            </button>
+                        </div>
+
+                        <!-- Mockup Content Area -->
+                        <div class="p-5 bg-slate-900/90 min-h-[320px] flex flex-col justify-between">
+                            
+                            <!-- View 1: Analytics Dashboard -->
+                            <div id="heroViewDash" class="space-y-4">
+                                <div class="flex items-center justify-between bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                                    <div>
+                                        <div class="text-xs text-brand-gold font-bold uppercase tracking-wider">Active Academic Session</div>
+                                        <div class="text-sm font-bold text-white">2025/2026 • Term 1 • Western Area Rural</div>
+                                    </div>
+                                    <span class="text-xs font-mono bg-sky-500/20 text-sky-300 px-2.5 py-1 rounded-lg">☁️ Cloudflare Tunnel Ready</span>
+                                </div>
+
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                    <div class="bg-slate-800/70 p-3 rounded-xl border border-slate-700">
+                                        <div class="text-[11px] text-slate-400">Enrollment</div>
+                                        <div class="text-xl font-extrabold text-white mt-0.5">642</div>
+                                        <div class="text-[10px] text-emerald-400 mt-1">49% Boys • 51% Girls</div>
+                                    </div>
+                                    <div class="bg-slate-800/70 p-3 rounded-xl border border-slate-700">
+                                        <div class="text-[11px] text-slate-400">Attendance</div>
+                                        <div class="text-xl font-extrabold text-brand-emerald mt-0.5">94.8%</div>
+                                        <div class="text-[10px] text-slate-300 mt-1">12 / 14 Weeks Logged</div>
+                                    </div>
+                                    <div class="bg-slate-800/70 p-3 rounded-xl border border-slate-700">
+                                        <div class="text-[11px] text-slate-400">Broadsheet</div>
+                                        <div class="text-xl font-extrabold text-brand-gold mt-0.5">100%</div>
+                                        <div class="text-[10px] text-slate-300 mt-1">Auto-Ranked (T1+T2)</div>
+                                    </div>
+                                    <div class="bg-slate-800/70 p-3 rounded-xl border border-slate-700">
+                                        <div class="text-[11px] text-slate-400">DB Security</div>
+                                        <div class="text-xl font-extrabold text-sky-400 mt-0.5">AES-256</div>
+                                        <div class="text-[10px] text-slate-300 mt-1">SQLCipher v4 Locked</div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-slate-800/50 rounded-xl p-3 border border-slate-700/80 flex items-center justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <span class="w-8 h-8 rounded-lg bg-brand-gold/20 text-brand-gold flex items-center justify-center font-bold text-sm">🖨️</span>
+                                        <div>
+                                            <div class="text-xs font-bold text-white">High-DPI GDI+ Report &amp; Broadsheet Engine</div>
+                                            <div class="text-[11px] text-slate-400">Instant A4 Student Dossiers, Fee Ledgers &amp; Master Broadsheets</div>
+                                        </div>
+                                    </div>
+                                    <span class="text-xs font-mono text-brand-emerald">Ready</span>
+                                </div>
+                            </div>
+
+                            <!-- View 2: Teacher Wi-Fi Portal -->
+                            <div id="heroViewPortal" class="hidden space-y-4">
+                                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-emerald-400">📶 1. On-Campus School Wi-Fi (Zero Data)</span>
+                                        <span class="text-[11px] font-mono text-slate-400">http://192.168.137.1:8080</span>
+                                    </div>
+                                    <p class="text-xs text-slate-300">Teachers enter Test 1, Test 2, and Morning/Afternoon attendance directly from their phones with 2-second offline auto-save.</p>
+                                </div>
+                                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span class="text-xs font-bold text-sky-400">☁️ 2. Remote Cloudflare HTTPS Quick Tunnel</span>
+                                        <span class="text-[11px] font-mono text-slate-400">https://skul-portal.trycloudflare.com</span>
+                                    </div>
+                                    <p class="text-xs text-slate-300">Principals and teachers working from home can securely submit grades and register students via WhatsApp-shareable link.</p>
+                                </div>
+                            </div>
+
+                            <!-- View 3: CR80 ID Card Preview -->
+                            <div id="heroViewIdcard" class="hidden">
+                                <div class="bg-white text-slate-900 rounded-xl overflow-hidden shadow-lg border-2 border-slate-300 max-w-md mx-auto">
+                                    <div class="bg-brand-navy px-4 py-2.5 border-b-4 border-brand-gold flex items-center justify-between">
+                                        <div>
+                                            <div class="text-xs font-extrabold text-white tracking-wide">SKULMASTER ACADEMY</div>
+                                            <div class="text-[10px] text-brand-gold font-bold">OFFICIAL STUDENT IDENTIFICATION CARD</div>
+                                        </div>
+                                        <span class="text-[10px] font-mono bg-white/10 text-white px-2 py-0.5 rounded">CR80 PVC</span>
+                                    </div>
+                                    <div class="p-4 flex items-center gap-4">
+                                        <div class="w-16 h-20 rounded-lg bg-slate-200 border border-slate-300 flex flex-col items-center justify-center text-brand-navy font-extrabold text-lg shrink-0">
+                                            <span>AK</span>
+                                            <span class="text-[9px] font-normal text-slate-500">PHOTO</span>
+                                        </div>
+                                        <div class="text-xs space-y-1">
+                                            <div class="font-extrabold text-sm text-brand-navy">AMINATA KOROMA</div>
+                                            <div class="text-[10px] font-bold text-brand-emerald">REGISTERED STUDENT • SCIENCE</div>
+                                            <div><span class="text-slate-500 font-semibold">ID NO:</span> <span class="font-mono font-bold">STU-2026-014</span></div>
+                                            <div><span class="text-slate-500 font-semibold">CLASS:</span> <span class="font-bold">SSS 2</span> • <span class="text-slate-500 font-semibold">HOUSE:</span> <span class="font-bold text-amber-600">Gold</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Mockup Footer -->
+                            <div class="pt-3 mt-3 border-t border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                                <span>Click tabs above to preview SkulMaster modules</span>
+                                <span class="font-mono text-brand-gold">© CodeSkul Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. FLAGSHIP PRODUCT: SKULMASTER EMIS       -->
+    <!-- ========================================== -->
+    <section id="skulmaster" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-emerald bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                    Flagship Educational Software
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-3">
+                    SkulMaster EMIS — Built for Sierra Leonean Schools
+                </h2>
+                <p class="text-slate-600 mt-3 text-base">
+                    A complete, offline-first school management ecosystem combining a high-speed C# .NET Windows desktop engine with a zero-data mobile web portal for teachers.
+                </p>
+            </div>
+
+            <!-- Interactive Feature Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10" role="tablist">
+                <button onclick="switchSkulMasterTab(0)" id="smTab0" class="sm-tab tab-active px-5 py-3 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 transition-all">
+                    🖥️ 1. Offline-First Desktop Engine
+                </button>
+                <button onclick="switchSkulMasterTab(1)" id="smTab1" class="sm-tab px-5 py-3 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                    📱 2. Teacher Mobile Web Portal
+                </button>
+                <button onclick="switchSkulMasterTab(2)" id="smTab2" class="sm-tab px-5 py-3 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                    🪪 3. CR80 ID &amp; Dossier Printing
+                </button>
+                <button onclick="switchSkulMasterTab(3)" id="smTab3" class="sm-tab px-5 py-3 rounded-xl font-bold text-sm bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">
+                    ☁️ 4. Cloud &amp; Multi-Role Security
+                </button>
+            </div>
+
+            <!-- Tab Content Panels -->
+            <div class="bg-slate-50 rounded-2xl border border-slate-200 p-6 sm:p-10 shadow-sm">
+                
+                <!-- Panel 0: Offline-First Desktop Engine -->
+                <div id="smPanel0" class="sm-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="inline-block bg-brand-navy text-brand-gold text-xs font-mono font-bold px-3 py-1 rounded-md">
+                            C# .NET 10 • WinForms • SQLCipher AES-256
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy">
+                            100% Operational Without Internet Connectivity
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Designed specifically for Pre-School, Primary, JSS, and SSS institutions (Science, Arts, and Commerce streams). SkulMaster stores all records locally in an encrypted <code class="font-mono text-xs bg-slate-200 px-1.5 py-0.5 rounded">skulmaster.sys</code> database protected against tampering.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-700 pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Automated Master Broadsheet:</strong> Computes Test 1, Test 2, Subject Means, Ordinal Subject Ranks, and Final Class Positions automatically.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Bursar Fee Ledger &amp; PIN Protection:</strong> Track termly expected fees, payments, and balances in Leones (Le) with dedicated Finance PIN security.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Cascading Data Integrity:</strong> Transactional safeguards for student subjects, attendance logs, and historical academic years.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-5 bg-brand-navy text-white p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                            <span class="font-mono text-xs text-brand-gold">MASTER BROADSHEET ENGINE</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded">Instant Rank</span>
+                        </div>
+                        <div class="space-y-2 text-xs font-mono">
+                            <div class="flex justify-between bg-slate-800/80 p-2.5 rounded-lg">
+                                <span>🥇 1st • STU-001 (JSS 3)</span>
+                                <span class="text-emerald-400 font-bold">88.5% AVG</span>
+                            </div>
+                            <div class="flex justify-between bg-slate-800/80 p-2.5 rounded-lg">
+                                <span>🥈 2nd • STU-019 (JSS 3)</span>
+                                <span class="text-emerald-400 font-bold">84.0% AVG</span>
+                            </div>
+                            <div class="flex justify-between bg-slate-800/80 p-2.5 rounded-lg">
+                                <span>🥉 3rd • STU-007 (JSS 3)</span>
+                                <span class="text-emerald-400 font-bold">79.2% AVG</span>
+                            </div>
+                        </div>
+                        <p class="text-[11px] text-slate-400">Supports one-click landscape A4 printing with official school crest, district, and MBSSE school code.</p>
+                    </div>
+                </div>
+
+                <!-- Panel 1: Teacher Mobile Web Portal -->
+                <div id="smPanel1" class="sm-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="inline-block bg-brand-emerald/20 text-emerald-800 text-xs font-mono font-bold px-3 py-1 rounded-md">
+                            Local TCP Server + Cloudflare HTTPS Quick Tunnel
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy">
+                            Turn Every Teacher's Smartphone Into a Grading Terminal
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Eliminate bottlenecks in the computer lab. With one click on <strong>"Start Portal"</strong>, the school laptop hosts a fast mobile web portal accessible via QR code over Campus Wi-Fi or remotely over the internet.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-700 pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Real-Time Auto-Save &amp; Offline Drafts:</strong> Teachers enter scores on their phones; drafts cache in <code class="font-mono text-xs bg-slate-200 px-1 rounded">localStorage</code> and sync automatically.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>3-Step Mobile Student Registration Wizard:</strong> Principals and Admins can enroll students and capture camera photos directly from their phones.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Morning &amp; Afternoon Attendance:</strong> One-tap "Mark All Present" plus absentee watchlists.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-5 bg-brand-navy text-white p-6 rounded-2xl border border-slate-800 space-y-4">
+                        <div class="text-xs font-mono text-brand-gold border-b border-slate-800 pb-2">MOBILE PORTAL LIVE SYNC</div>
+                        <div class="bg-slate-800 p-3.5 rounded-xl space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="font-bold">👤 Mr. Kamara (Class Teacher • JSS 2)</span>
+                                <span class="text-emerald-400 font-mono">Saved ✅</span>
+                            </div>
+                            <div class="text-[11px] text-slate-300">Mathematics • T1: 42/42 • T2: 42/42 • Class Avg: 68.4%</div>
+                        </div>
+                        <div class="bg-slate-800 p-3.5 rounded-xl space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="font-bold">👤 Mrs. Sesay (Principal • All Classes)</span>
+                                <span class="text-amber-400 font-mono">Wizard Active</span>
+                            </div>
+                            <div class="text-[11px] text-slate-300">Enrolled new student via 3-Step Mobile Wizard + Photo Upload</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 2: CR80 ID & Dossier Printing -->
+                <div id="smPanel2" class="sm-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="inline-block bg-amber-100 text-amber-900 text-xs font-mono font-bold px-3 py-1 rounded-md">
+                            GDI+ Vector Rendering • 300+ DPI Output
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy">
+                            Instant CR80 PVC ID Cards &amp; Official Student Dossiers
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            SkulMaster includes built-in GDI+ print engines for both <strong>Student &amp; Staff ID Cards</strong> and comprehensive <strong>A4 Cumulative Dossiers</strong>—ready for direct PVC card printing or CodeSkul's commercial print fulfillment.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-700 pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Standard CR80 Layout:</strong> Branded Navy &amp; Gold header, circular school crest mask, student photo or auto-generated initials avatar, and house color badges.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Full Student Dossier:</strong> Combines personal bio-data, guardian contacts, enrolled curriculum subjects, fee statement, and termly attendance percentages on one sheet.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-5 bg-brand-navy text-white p-6 rounded-2xl border border-slate-800 space-y-3">
+                        <div class="text-xs font-mono text-brand-gold">INCLUDED PRINT TEMPLATES</div>
+                        <div class="p-3 bg-slate-800 rounded-xl text-xs flex items-center justify-between">
+                            <span>🪪 Student CR80 ID Card</span>
+                            <span class="font-mono text-emerald-400">676×426 Vector</span>
+                        </div>
+                        <div class="p-3 bg-slate-800 rounded-xl text-xs flex items-center justify-between">
+                            <span>🪪 Staff &amp; Faculty ID Card (with NIN/Qual)</span>
+                            <span class="font-mono text-emerald-400">676×426 Vector</span>
+                        </div>
+                        <div class="p-3 bg-slate-800 rounded-xl text-xs flex items-center justify-between">
+                            <span>📄 Official Student Cumulative Dossier</span>
+                            <span class="font-mono text-brand-gold">A4 Portrait</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Cloud & Multi-Role Security -->
+                <div id="smPanel3" class="sm-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                    <div class="lg:col-span-7 space-y-4">
+                        <div class="inline-block bg-sky-100 text-sky-900 text-xs font-mono font-bold px-3 py-1 rounded-md">
+                            Role-Based Access Control • Hardware Licensing
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-brand-navy">
+                            Granular Role Permissions &amp; Tamper-Proof Security
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            Every staff member logs in with tailored permissions so sensitive financial and academic records remain protected at all times.
+                        </p>
+                        <ul class="space-y-2.5 text-sm text-slate-700 pt-2">
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Admin / Principal / Vice:</strong> Full access to Analytics Dashboard, Staff, Students, Attendance, Grades, Fee Management, and Backups.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Exam Officer:</strong> Multi-class access to Student Management, Academics &amp; Grades, and Grade Analytics (Attendance hidden to focus on exams).</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <span class="text-brand-emerald font-bold">✓</span>
+                                <span><strong>Class Teacher &amp; Bursar Scopes:</strong> Class Teachers are locked to their assigned class/stream, while Bursars manage Fee Billing and Student Ledgers.</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="lg:col-span-5 bg-brand-navy text-white p-6 rounded-2xl border border-slate-800 space-y-3">
+                        <div class="text-xs font-mono text-brand-gold">SECURITY ARCHITECTURE</div>
+                        <div class="text-xs text-slate-300 space-y-2">
+                            <div class="p-3 bg-slate-800 rounded-xl">🔐 <strong>SQLCipher 4 Encryption:</strong> Obfuscated master key architecture prevents unauthorized database browsing.</div>
+                            <div class="p-3 bg-slate-800 rounded-xl">🛡️ <strong>Finance Auth Interceptor:</strong> Secondary PIN challenge before opening Fee Management tab.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 4. FILTERABLE CORE SERVICES GRID           -->
+    <!-- ========================================== -->
+    <section id="services" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+                <div>
+                    <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-gold bg-amber-50 px-3 py-1 rounded-full border border-amber-200">
+                        What We Do
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-3">
+                        Comprehensive Engineering &amp; Print Services
+                    </h2>
+                </div>
+
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="filterServices('all')" data-filter="all" class="srv-filter-btn bg-brand-navy text-white px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                        All Services
+                    </button>
+                    <button onclick="filterServices('software')" data-filter="software" class="srv-filter-btn bg-white text-slate-700 border border-slate-300 hover:border-brand-navy px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                        Software &amp; Web
+                    </button>
+                    <button onclick="filterServices('iot')" data-filter="iot" class="srv-filter-btn bg-white text-slate-700 border border-slate-300 hover:border-brand-navy px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                        Hardware &amp; IoT
+                    </button>
+                    <button onclick="filterServices('printing')" data-filter="printing" class="srv-filter-btn bg-white text-slate-700 border border-slate-300 hover:border-brand-navy px-4 py-2 rounded-xl text-xs font-bold transition-all">
+                        Technical Printing
+                    </button>
+                </div>
+            </div>
+
+            <!-- Services Cards Grid -->
+            <div id="servicesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+                
+                <!-- Service 1 -->
+                <div data-category="software" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center text-2xl mb-5">💻</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-brand-emerald">Software &amp; Web</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">Custom Desktop &amp; Web Engineering</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            High-performance Windows desktop software (C# .NET, WinForms, SQLite/SQLCipher) and responsive web platforms (React, PHP/MySQL, WordPress) engineered for reliability.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">C# .NET 10</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">SQLCipher</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Full-Stack Web</span>
+                    </div>
+                </div>
+
+                <!-- Service 2 -->
+                <div data-category="software" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-brand-emerald flex items-center justify-center text-2xl mb-5">🎓</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-brand-emerald">Software &amp; Web</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">Educational &amp; Enterprise Systems</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            Turnkey deployment of <strong>SkulMaster EMIS</strong> for schools, alongside custom Point-of-Sale (POS), inventory ledgers, and agricultural e-commerce marketplaces.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">SkulMaster EMIS</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">POS &amp; Billing</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">E-Commerce</span>
+                    </div>
+                </div>
+
+                <!-- Service 3 -->
+                <div data-category="iot" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-amber-400 flex items-center justify-center text-2xl mb-5">🔌</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-amber-600">Hardware &amp; IoT</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">Embedded Systems &amp; IoT Prototyping</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            Design and fabrication of Arduino &amp; ESP32 microcontroller systems, environmental &amp; water-quality TDS sensors, ultrasonic assistive tech, and custom PCB prototypes.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Arduino / ESP32</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Smart Sensors</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Assistive Tech</span>
+                    </div>
+                </div>
+
+                <!-- Service 4 -->
+                <div data-category="printing" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center text-2xl mb-5">🪪</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-brand-gold">Technical Printing</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">CR80 PVC ID Card Production</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            High-definition, waterproof CR80 PVC identification cards for students, school faculty, corporate staff, and NGOs—complete with lanyards, holders, and QR verification.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">CR80 PVC Cards</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">QR Badges</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Branded Lanyards</span>
+                    </div>
+                </div>
+
+                <!-- Service 5 -->
+                <div data-category="printing" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-brand-emerald flex items-center justify-center text-2xl mb-5">🖨️</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-brand-gold">Technical Printing</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">Commercial &amp; Academic Printing</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            Bulk printing of cumulative student dossiers, termly report cards, official receipt books, large-format school banners, dissertations, and branded stationery.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">A4/A3 Dossiers</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Receipt Books</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Thesis Binding</span>
+                    </div>
+                </div>
+
+                <!-- Service 6 -->
+                <div data-category="software" class="service-card bg-white rounded-2xl p-7 border border-slate-200 shadow-sm hover:shadow-xl transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-brand-navy text-sky-400 flex items-center justify-center text-2xl mb-5">📡</div>
+                        <span class="text-[11px] font-mono uppercase font-bold text-brand-emerald">Software &amp; Web</span>
+                        <h3 class="text-xl font-extrabold text-brand-navy mt-1">IT Consultancy &amp; Campus Networks</h3>
+                        <p class="text-sm text-slate-600 mt-2.5 leading-relaxed">
+                            Local Wi-Fi hotspot deployment for schools, Cloudflare tunnel configuration, SQLite/SQLCipher database security audits, and hands-on teacher ICT training.
+                        </p>
+                    </div>
+                    <div class="pt-5 mt-5 border-t border-slate-100 flex flex-wrap gap-1.5 text-[11px] font-mono text-slate-500">
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">Campus LAN</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">ICT Training</span>
+                        <span class="bg-slate-100 px-2 py-0.5 rounded">DB Security</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 5. INNOVATION & PORTFOLIO SHOWCASE         -->
+    <!-- ========================================== -->
+    <section id="portfolio" class="py-20 bg-brand-navy text-white border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-14">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-gold bg-slate-800 px-3 py-1 rounded-full border border-slate-700">
+                    Proven Engineering Track Record
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold mt-3">
+                    Innovation &amp; Deployed Solutions Portfolio
+                </h2>
+                <p class="text-slate-400 mt-3 text-base">
+                    From offline school management systems to smart agricultural platforms and hardware prototypes engineered in Sierra Leone.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Portfolio 1: SkulMaster -->
+                <div class="rounded-2xl bg-slate-900 border border-slate-800 p-7 hover:border-brand-gold/60 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="text-xs font-mono font-bold text-brand-emerald bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
+                                EdTech • Desktop + Mobile Web
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Production v2026</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">SkulMaster EMIS &amp; Teacher Portal</h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Offline-first school management software featuring SQLCipher database encryption, automated broadsheet ranking, mobile Wi-Fi &amp; Cloudflare grading portal, and high-res GDI+ ID card/dossier printing.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
+                        <span class="font-mono text-brand-gold">C# .NET 10 • SQLite • Vanilla JS</span>
+                        <a href="#estimator" class="text-white font-bold hover:text-brand-gold">Request Demo →</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio 2: AgroConnect SL -->
+                <div class="rounded-2xl bg-slate-900 border border-slate-800 p-7 hover:border-brand-gold/60 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="text-xs font-mono font-bold text-amber-400 bg-amber-500/10 px-3 py-1 rounded-full border border-amber-500/20">
+                                AgriTech • E-Commerce Platform
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Web Application</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">AgroConnect SL</h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Digital agricultural marketplace connecting local Sierra Leonean farmers directly with wholesale buyers and consumers, featuring produce listings, order tracking, and transparent pricing.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
+                        <span class="font-mono text-brand-gold">PHP • MySQL • Responsive UI</span>
+                        <a href="#contact" class="text-white font-bold hover:text-brand-gold">Inquire →</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio 3: ClimaWise & Smart IoT Prototypes -->
+                <div class="rounded-2xl bg-slate-900 border border-slate-800 p-7 hover:border-brand-gold/60 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="text-xs font-mono font-bold text-sky-400 bg-sky-500/10 px-3 py-1 rounded-full border border-sky-500/20">
+                                Embedded IoT • Environmental &amp; Assistive
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Hardware + Firmware</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">ClimaWise &amp; Smart Sensor Prototypes</h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            Custom hardware prototypes including real-time water quality Total Dissolved Solids (TDS) monitoring, environmental climate telemetry, and ultrasonic assistive navigation devices.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
+                        <span class="font-mono text-brand-gold">Arduino • C/C++ • TDS &amp; Ultrasonic Sensors</span>
+                        <a href="#contact" class="text-white font-bold hover:text-brand-gold">Collaborate →</a>
+                    </div>
+                </div>
+
+                <!-- Portfolio 4: School ID & Branding Packages -->
+                <div class="rounded-2xl bg-slate-900 border border-slate-800 p-7 hover:border-brand-gold/60 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-4">
+                            <span class="text-xs font-mono font-bold text-purple-300 bg-purple-500/10 px-3 py-1 rounded-full border border-purple-500/20">
+                                Commercial Print • Identity Systems
+                            </span>
+                            <span class="text-xs font-mono text-slate-400">Batch Fulfillment</span>
+                        </div>
+                        <h3 class="text-2xl font-extrabold text-white">Institutional ID &amp; Dossier Packages</h3>
+                        <p class="text-slate-300 text-sm mt-2 leading-relaxed">
+                            End-to-end production of color-coded CR80 student and staff PVC ID cards, cumulative dossier folders, and official school stationery for academies across Western Area.
+                        </p>
+                    </div>
+                    <div class="pt-6 mt-6 border-t border-slate-800 flex items-center justify-between text-xs">
+                        <span class="font-mono text-brand-gold">300+ DPI Vector • CR80 PVC • A4 Dossiers</span>
+                        <a href="#estimator" class="text-white font-bold hover:text-brand-gold">Calculate Print Cost →</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 6. INTERACTIVE QUOTE & PRINT CALCULATOR    -->
+    <!-- ========================================== -->
+    <section id="estimator" class="py-20 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-navy bg-amber-100 px-3 py-1 rounded-full">
+                    Instant Cost Estimator
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-3">
+                    Interactive Project &amp; Printing Quote Calculator
+                </h2>
+                <p class="text-slate-600 mt-2 text-base">
+                    Configure your school's software deployment, custom web/IoT engineering, or CR80 ID card printing batch below and send your estimate directly to our team via WhatsApp or Email.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <!-- Left Column: Interactive Controls -->
+                <div class="lg:col-span-7 bg-slate-50 p-6 sm:p-8 rounded-2xl border border-slate-200 space-y-6">
+                    
+                    <!-- 1. Software / Engineering Package -->
+                    <div>
+                        <label for="calcSoftwarePkg" class="block text-sm font-extrabold text-brand-navy mb-2">
+                            1. Select Software or Engineering Package
+                        </label>
+                        <select id="calcSoftwarePkg" onchange="updateQuoteCalculation()" class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                            <option value="0" data-name="No Software Package (Printing Only)">None — Technical Printing Only (NLe 0)</option>
+                            <option value="3500" data-name="SkulMaster EMIS (Single School License + Setup)" selected>SkulMaster EMIS — Full School License + Setup (NLe 3,500)</option>
+                            <option value="5000" data-name="SkulMaster EMIS + Campus Wi-Fi Router Bundle">SkulMaster EMIS + Dedicated Campus Wi-Fi Portal Bundle (NLe 5,000)</option>
+                            <option value="4200" data-name="Custom Corporate / E-Commerce Website">Custom Corporate or E-Commerce Website (NLe 4,200)</option>
+                            <option value="2800" data-name="Embedded IoT / Arduino Hardware Prototype">Embedded IoT / Smart Sensor Hardware Prototype (NLe 2,800)</option>
+                        </select>
+                    </div>
+
+                    <!-- 2. CR80 PVC ID Card Batch Slider -->
+                    <div class="p-5 bg-white rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="calcIdCardQty" class="text-sm font-extrabold text-brand-navy">
+                                2. CR80 PVC ID Cards (Students / Staff)
+                            </label>
+                            <span id="calcIdQtyBadge" class="font-mono text-sm font-extrabold bg-brand-navy text-brand-gold px-3 py-1 rounded-lg">
+                                100 Cards
+                            </span>
+                        </div>
+                        <input id="calcIdCardQty" type="range" min="0" max="1000" step="25" value="100" oninput="updateQuoteCalculation()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span>0 Cards</span>
+                            <span>Unit Rate: NLe 25 / Card (Bulk &ge;250: NLe 20 / Card)</span>
+                            <span>1,000 Cards</span>
+                        </div>
+                    </div>
+
+                    <!-- 3. Official Student Dossier / Report Card Printing -->
+                    <div class="p-5 bg-white rounded-xl border border-slate-200 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <label for="calcDossierQty" class="text-sm font-extrabold text-brand-navy">
+                                3. Color A4 Student Dossiers / Broadsheets
+                            </label>
+                            <span id="calcDossierBadge" class="font-mono text-sm font-extrabold bg-emerald-50 text-brand-emerald border border-emerald-200 px-3 py-1 rounded-lg">
+                                100 Pages
+                            </span>
+                        </div>
+                        <input id="calcDossierQty" type="range" min="0" max="2000" step="50" value="100" oninput="updateQuoteCalculation()" class="w-full h-2 bg-slate-200 rounded-lg cursor-pointer">
+                        <div class="flex justify-between text-[11px] text-slate-500 font-mono">
+                            <span>0 Pages</span>
+                            <span>Rate: NLe 4 / High-Res Color Sheet</span>
+                            <span>2,000 Pages</span>
+                        </div>
+                    </div>
+
+                    <!-- 4. Optional Add-Ons -->
+                    <div>
+                        <span class="block text-sm font-extrabold text-brand-navy mb-2.5">4. Optional Add-on Services</span>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-white cursor-pointer hover:border-brand-navy">
+                                <input type="checkbox" id="chkAddonTraining" value="600" onchange="updateQuoteCalculation()" class="w-4 h-4 accent-brand-navy rounded">
+                                <span class="text-xs font-bold text-slate-700">On-Site Staff ICT Training (+NLe 600)</span>
+                            </label>
+                            <label class="flex items-center gap-3 p-3.5 rounded-xl border border-slate-200 bg-white cursor-pointer hover:border-brand-navy">
+                                <input type="checkbox" id="chkAddonBanner" value="450" onchange="updateQuoteCalculation()" class="w-4 h-4 accent-brand-navy rounded">
+                                <span class="text-xs font-bold text-slate-700">Large-Format School Banner (+NLe 450)</span>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Column: Live Estimate Summary Card -->
+                <div class="lg:col-span-5 bg-brand-navy text-white p-7 sm:p-8 rounded-2xl shadow-xl border border-slate-800 space-y-6">
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-4">
+                        <div>
+                            <span class="text-xs font-mono uppercase text-brand-gold">Estimated Investment</span>
+                            <h3 class="text-xl font-extrabold">CodeSkul Instant Quote</h3>
+                        </div>
+                        <span class="text-xs font-mono bg-white/10 px-2.5 py-1 rounded">SLE (NLe)</span>
+                    </div>
+
+                    <!-- Line Items Breakdown -->
+                    <div id="quoteBreakdownList" class="space-y-3 text-sm border-b border-slate-800 pb-5">
+                        <!-- Dynamically populated by JS -->
+                    </div>
+
+                    <!-- Total Amount -->
+                    <div class="flex items-baseline justify-between">
+                        <span class="text-sm text-slate-300 font-semibold">Estimated Total:</span>
+                        <div id="quoteTotalDisplay" class="text-3xl sm:text-4xl font-extrabold text-brand-gold font-mono">
+                            NLe 6,400
+                        </div>
+                    </div>
+
+                    <!-- Organization Name Input for Quote -->
+                    <div>
+                        <label for="quoteOrgName" class="block text-xs text-slate-300 font-semibold mb-1.5">Your School or Organization Name</label>
+                        <input type="text" id="quoteOrgName" placeholder="e.g., Peninsula Secondary School, Waterloo" class="w-full rounded-xl bg-slate-800 border border-slate-700 px-3.5 py-2.5 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-brand-gold">
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-3 pt-1">
+                        <button onclick="sendQuoteViaWhatsApp()" class="w-full bg-brand-emerald hover:bg-emerald-500 text-brand-navy font-extrabold py-3.5 px-5 rounded-xl shadow-lg flex items-center justify-center gap-2 transition-all">
+                            <span>💬 Send Estimate via WhatsApp</span>
+                        </button>
+                        <button onclick="copyEstimateToClipboard()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold py-2.5 px-4 rounded-xl text-xs transition-all">
+                            📋 Copy Quote Breakdown to Clipboard
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 7. CONTACT & LOCATION SECTION              -->
+    <!-- ========================================== -->
+    <section id="contact" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Left Column: Contact Details & Office Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <span class="text-xs font-mono font-bold uppercase tracking-widest text-brand-emerald bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
+                        Get In Touch
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-brand-navy">
+                        Visit CodeSkul or Start Your Project Today
+                    </h2>
+                    <p class="text-slate-600 text-sm leading-relaxed">
+                        Whether you want to deploy <strong>SkulMaster EMIS</strong> at your school, print a batch of CR80 student ID cards, or build a custom software/IoT solution, our engineering team is ready to assist.
+                    </p>
+
+                    <div class="space-y-4 pt-2">
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-brand-navy text-brand-gold flex items-center justify-center shrink-0 text-lg">📍</div>
+                            <div>
+                                <h4 class="text-sm font-extrabold text-brand-navy">Office &amp; Print Studio Location</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">Hastings Market, Waterloo Highway, Western Area Rural, Sierra Leone</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-brand-navy text-brand-emerald flex items-center justify-center shrink-0 text-lg">📞</div>
+                            <div>
+                                <h4 class="text-sm font-extrabold text-brand-navy">Direct Phone &amp; WhatsApp</h4>
+                                <p class="text-xs text-slate-600 mt-0.5 font-mono">+232 31 565446 &nbsp;/&nbsp; +232 78 213068</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                            <div class="w-10 h-10 rounded-xl bg-brand-navy text-amber-400 flex items-center justify-center shrink-0 text-lg">✉️</div>
+                            <div>
+                                <h4 class="text-sm font-extrabold text-brand-navy">Email &amp; GitHub</h4>
+                                <p class="text-xs text-slate-600 mt-0.5">
+                                    <a href="mailto:codeskul23@gmail.com" class="text-brand-navy font-semibold hover:underline">codeskul23@gmail.com</a>
+                                    &nbsp;•&nbsp;
+                                    <a href="https://github.com/kalokoh" target="_blank" rel="noopener noreferrer" class="text-brand-emerald font-mono font-semibold hover:underline">github.com/kalokoh</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Interactive Contact Form -->
+                <div class="lg:col-span-7 bg-white p-7 sm:p-9 rounded-2xl border border-slate-200 shadow-sm">
+                    <h3 class="text-xl font-extrabold text-brand-navy mb-1">Send a Direct Project or Printing Inquiry</h3>
+                    <p class="text-xs text-slate-500 mb-6">Fill out the form below and we will respond promptly.</p>
+
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4" novalidate>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="cntName" class="block text-xs font-bold text-slate-700 mb-1">Full Name *</label>
+                                <input type="text" id="cntName" required placeholder="e.g., Ibrahim Kalokoh" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                            </div>
+                            <div>
+                                <label for="cntPhone" class="block text-xs font-bold text-slate-700 mb-1">Phone / WhatsApp Number *</label>
+                                <input type="tel" id="cntPhone" required placeholder="e.g., +232 78 213068" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label for="cntEmail" class="block text-xs font-bold text-slate-700 mb-1">Email Address</label>
+                                <input type="email" id="cntEmail" placeholder="you@school.edu.sl" class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                            </div>
+                            <div>
+                                <label for="cntService" class="block text-xs font-bold text-slate-700 mb-1">Service of Interest *</label>
+                                <select id="cntService" class="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy">
+                                    <option value="SkulMaster EMIS Deployment">SkulMaster EMIS Deployment</option>
+                                    <option value="CR80 PVC ID Cards & Dossier Printing">CR80 PVC ID Cards &amp; Dossier Printing</option>
+                                    <option value="Custom Desktop / Web Development">Custom Desktop / Web Development</option>
+                                    <option value="Embedded IoT / Hardware Prototype">Embedded IoT / Hardware Prototype</option>
+                                    <option value="IT Consultancy & Campus Wi-Fi">IT Consultancy &amp; Campus Wi-Fi</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="cntMessage" class="block text-xs font-bold text-slate-700 mb-1">Project or Printing Details *</label>
+                            <textarea id="cntMessage" rows="4" required placeholder="Tell us about your school's enrollment size, ID card quantity, or software requirements..." class="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-navy"></textarea>
+                        </div>
+
+                        <div class="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                            <span class="text-[11px] text-slate-500">🔒 Your information is kept strictly confidential.</span>
+                            <button type="submit" class="bg-brand-navy hover:bg-slate-800 text-white font-bold text-sm px-7 py-3.5 rounded-xl shadow-md transition-all">
+                                Submit Inquiry →
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- FOOTER                                     -->
+    <!-- ========================================== -->
+    <footer class="bg-brand-navy text-slate-400 py-12 border-t-2 border-brand-gold">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 pb-8 border-b border-slate-800">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-lg bg-brand-gold text-brand-navy font-mono font-extrabold flex items-center justify-center text-sm">
+                        &lt;/&gt;
+                    </div>
+                    <div>
+                        <span class="text-white font-extrabold text-lg">Code<span class="text-brand-gold">Skul</span></span>
+                        <span class="text-xs block text-slate-400">Software Solutions &amp; Technical Printing Services</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-6 text-xs font-medium text-slate-300">
+                    <a href="#home" class="hover:text-brand-gold">Home</a>
+                    <a href="#skulmaster" class="hover:text-brand-gold">SkulMaster EMIS</a>
+                    <a href="#services" class="hover:text-brand-gold">Services</a>
+                    <a href="#portfolio" class="hover:text-brand-gold">Portfolio</a>
+                    <a href="#estimator" class="hover:text-brand-gold">Estimator</a>
+                    <a href="https://github.com/kalokoh" target="_blank" rel="noopener noreferrer" class="text-brand-emerald hover:underline font-mono">GitHub: @kalokoh</a>
+                </div>
+            </div>
+
+            <div class="pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
+                <p>© 2026 CodeSkul Software Solutions. All rights reserved.</p>
+                <p>Hastings Market, Waterloo Highway, Sierra Leone • Tel: +232 31 565446 / +232 78 213068</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- INTERACTIVE JAVASCRIPT LOGIC               -->
+    <!-- ========================================== -->
+    <script>
+        let toastTimeout = null;
+
+        // 1. Custom Toast Notification (replaces native alert)
+        function showToast(title, message, isError = false) {
+            const toast = document.getElementById('toastNotification');
+            const titleEl = document.getElementById('toastTitle');
+            const msgEl = document.getElementById('toastMessage');
+            const iconEl = document.getElementById('toastIcon');
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+            iconEl.textContent = isError ? '⚠️' : '✅';
+            toast.style.borderLeftColor = isError ? '#EF4444' : '#10B981';
+
+            toast.classList.remove('hidden');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 4500);
+        }
+
+        // 2. Mobile Menu Drawer Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const openIcon = document.getElementById('menuIconOpen');
+            const closeIcon = document.getElementById('menuIconClose');
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        // 3. Hero Interactive Mockup Switcher
+        function switchHeroPreview(tab) {
+            const views = ['dash', 'portal', 'idcard'];
+            views.forEach(v => {
+                const viewEl = document.getElementById('heroView' + v.charAt(0).toUpperCase() + v.slice(1));
+                const btnEl = document.getElementById('heroBtn' + v.charAt(0).toUpperCase() + v.slice(1));
+                if (v === tab) {
+                    viewEl.classList.remove('hidden');
+                    btnEl.className = 'px-3.5 py-2 rounded-t-lg font-bold bg-brand-navy text-white border-b-2 border-brand-emerald whitespace-nowrap';
+                } else {
+                    viewEl.classList.add('hidden');
+                    btnEl.className = 'px-3.5 py-2 rounded-t-lg font-medium text-slate-400 hover:text-white whitespace-nowrap';
+                }
+            });
+        }
+
+        // 4. SkulMaster Flagship Feature Tabs
+        function switchSkulMasterTab(index) {
+            for (let i = 0; i < 4; i++) {
+                const tabBtn = document.getElementById('smTab' + i);
+                const panel = document.getElementById('smPanel' + i);
+                if (i === index) {
+                    tabBtn.classList.add('tab-active');
+                    panel.classList.remove('hidden');
+                } else {
+                    tabBtn.classList.remove('tab-active');
+                    panel.classList.add('hidden');
+                }
+            }
+        }
+
+        // 5. Filterable Core Services Grid
+        function filterServices(category) {
+            const cards = document.querySelectorAll('.service-card');
+            const buttons = document.querySelectorAll('.srv-filter-btn');
+
+            buttons.forEach(btn => {
+                if (btn.dataset.filter === category) {
+                    btn.className = 'srv-filter-btn bg-brand-navy text-white px-4 py-2 rounded-xl text-xs font-bold transition-all';
+                } else {
+                    btn.className = 'srv-filter-btn bg-white text-slate-700 border border-slate-300 hover:border-brand-navy px-4 py-2 rounded-xl text-xs font-bold transition-all';
+                }
+            });
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // 6. Interactive Project & Printing Quote Calculator
+        function getQuoteData() {
+            const pkgSelect = document.getElementById('calcSoftwarePkg');
+            const pkgCost = parseInt(pkgSelect.value, 10) || 0;
+            const pkgName = pkgSelect.options[pkgSelect.selectedIndex].dataset.name;
+
+            const idQty = parseInt(document.getElementById('calcIdCardQty').value, 10) || 0;
+            const idUnitRate = idQty >= 250 ? 20 : 25;
+            const idCost = idQty * idUnitRate;
+
+            const dossierQty = parseInt(document.getElementById('calcDossierQty').value, 10) || 0;
+            const dossierUnitRate = 4;
+            const dossierCost = dossierQty * dossierUnitRate;
+
+            const trainingChecked = document.getElementById('chkAddonTraining').checked;
+            const bannerChecked = document.getElementById('chkAddonBanner').checked;
+            const trainingCost = trainingChecked ? 600 : 0;
+            const bannerCost = bannerChecked ? 450 : 0;
+
+            const total = pkgCost + idCost + dossierCost + trainingCost + bannerCost;
+
+            return {
+                pkgName, pkgCost,
+                idQty, idUnitRate, idCost,
+                dossierQty, dossierUnitRate, dossierCost,
+                trainingChecked, trainingCost,
+                bannerChecked, bannerCost,
+                total
+            };
+        }
+
+        function updateQuoteCalculation() {
+            const q = getQuoteData();
+
+            document.getElementById('calcIdQtyBadge').textContent = `${q.idQty} Cards`;
+            document.getElementById('calcDossierBadge').textContent = `${q.dossierQty} Pages`;
+
+            const listEl = document.getElementById('quoteBreakdownList');
+            let html = '';
+
+            html += `
+                <div class="flex justify-between items-center">
+                    <span class="text-slate-300">${q.pkgName}</span>
+                    <span class="font-mono font-bold text-white">NLe ${q.pkgCost.toLocaleString()}</span>
+                </div>
+            `;
+
+            if (q.idQty > 0) {
+                html += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300">CR80 PVC ID Cards (${q.idQty} × NLe ${q.idUnitRate})</span>
+                        <span class="font-mono font-bold text-brand-emerald">NLe ${q.idCost.toLocaleString()}</span>
+                    </div>
+                `;
+            }
+
+            if (q.dossierQty > 0) {
+                html += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300">Color A4 Dossiers (${q.dossierQty} × NLe ${q.dossierUnitRate})</span>
+                        <span class="font-mono font-bold text-white">NLe ${q.dossierCost.toLocaleString()}</span>
+                    </div>
+                `;
+            }
+
+            if (q.trainingChecked) {
+                html += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300">On-Site Staff ICT Training</span>
+                        <span class="font-mono font-bold text-white">NLe ${q.trainingCost.toLocaleString()}</span>
+                    </div>
+                `;
+            }
+
+            if (q.bannerChecked) {
+                html += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-300">Large-Format School Banner</span>
+                        <span class="font-mono font-bold text-white">NLe ${q.bannerCost.toLocaleString()}</span>
+                    </div>
+                `;
+            }
+
+            listEl.innerHTML = html;
+            document.getElementById('quoteTotalDisplay').textContent = `NLe ${q.total.toLocaleString()}`;
+        }
+
+        function formatPlainTextQuote() {
+            const q = getQuoteData();
+            const org = document.getElementById('quoteOrgName').value.trim() || 'Prospective Client';
+            let lines = [
+                `Hello CodeSkul Team,`,
+                `Organization: ${org}`,
+                `--- PROJECT & PRINTING ESTIMATE ---`,
+                `• Package: ${q.pkgName} (NLe ${q.pkgCost.toLocaleString()})`,
+                `• CR80 PVC ID Cards: ${q.idQty} cards (NLe ${q.idCost.toLocaleString()})`,
+                `• Color A4 Dossiers: ${q.dossierQty} pages (NLe ${q.dossierCost.toLocaleString()})`
+            ];
+            if (q.trainingChecked) lines.push(`• Add-On: On-Site Staff ICT Training (NLe 600)`);
+            if (q.bannerChecked) lines.push(`• Add-On: Large-Format School Banner (NLe 450)`);
+            lines.push(`Estimated Total: NLe ${q.total.toLocaleString()}`);
+            return lines.join('\n');
+        }
+
+        function sendQuoteViaWhatsApp() {
+            const text = encodeURIComponent(formatPlainTextQuote());
+            window.open(`https://wa.me/23278213068?text=${text}`, '_blank');
+            showToast('Opening WhatsApp', 'Your customized CodeSkul estimate is ready to send.');
+        }
+
+        function copyEstimateToClipboard() {
+            const textArea = document.createElement('textarea');
+            textArea.value = formatPlainTextQuote();
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showToast('Quote Copied!', 'Estimate breakdown copied to your clipboard.');
+            } catch (err) {
+                showToast('Copy Error', 'Unable to copy automatically.', true);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // 7. Contact Form Submission Handler
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('cntName').value.trim();
+            const phone = document.getElementById('cntPhone').value.trim();
+            const service = document.getElementById('cntService').value;
+            const message = document.getElementById('cntMessage').value.trim();
+
+            if (!name || !phone || !message) {
+                showToast('Missing Fields', 'Please fill in your name, phone number, and project details.', true);
+                return;
+            }
+
+            showToast('Inquiry Received!', `Thank you, ${name}! Our team at CodeSkul will contact you on ${phone} regarding ${service}.`);
+            document.getElementById('contactForm').reset();
+        }
+
+        // Initialize quote calculator on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateQuoteCalculation();
+        });
+    </script>
+</body>
+</html>
